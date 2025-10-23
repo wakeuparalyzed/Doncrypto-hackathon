@@ -1,0 +1,308 @@
+/* === Основная цветовая тема и шрифты === */
+$bg-dark: #0e0e11;
+$bg-card: rgba(28,28,31,0.95);
+$accent: #4f8cff;
+$text: #f1f1f1;
+$text-muted: #b0b0b0;
+$shadow: 0 8px 30px rgba(0,0,0,0.6);
+$radius: 14px;
+$font-main: 'Inter', sans-serif;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: $font-main;
+  color: $text;
+  background: $bg-dark;
+  overflow: hidden;
+}
+
+/* === LOGIN SCREEN === */
+#login-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+
+  /* Фон-карта */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://tile.openstreetmap.org/10/546/351.png') center/cover no-repeat;
+    transform: scale(1.2); /* менее приближено */
+    filter: brightness(0.5);
+    z-index: 0;
+  }
+
+  .card {
+    position: relative;
+    z-index: 11;
+    background: rgba(28,28,31,0.85);
+    padding: 40px 50px;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    text-align: center;
+    width: 380px;
+    backdrop-filter: blur(6px);
+
+    h1 {
+      margin-bottom: 10px;
+      color: $accent;
+      font-weight: 700;
+      font-size: 2rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    p {
+      color: $text-muted;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-size: 0.85rem;
+      color: $text-muted;
+      margin-bottom: 5px;
+      margin-top: 10px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 12px 15px;
+      border-radius: $radius;
+      border: none;
+      background: #1c1c1f;
+      color: $text;
+      font-size: 0.95rem;
+      outline: none;
+      transition: 0.3s ease;
+      appearance: none;
+
+      &:focus {
+        background: #2a2a2e;
+        box-shadow: 0 0 8px $accent;
+      }
+    }
+
+    select {
+      color: $text;
+      option {
+        color: black;
+      }
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      border-radius: $radius;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+      &:nth-child(1) { // Войти
+        background: $accent;
+        color: #fff;
+
+        &:hover {
+          background: lighten($accent, 10%);
+        }
+      }
+
+      &:nth-child(2) { // Продолжить как гость
+        background: transparent;
+        border: 1px solid $accent;
+        color: $accent;
+
+        &:hover {
+          background: $accent;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+/* === APP LAYOUT === */
+#app {
+  display: flex;
+  height: 100vh;
+  background: $bg-dark;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  width: 320px;
+  background: #141418;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: inset -1px 0 0 rgba(255,255,255,0.05);
+  overflow-y: auto;
+
+  h2 {
+    font-size: 1.7rem;
+    color: $accent;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  #user-info {
+    font-size: 0.95rem;
+    color: $text;
+    font-weight: 500;
+    margin-bottom: 15px;
+    background: #1f1f24;
+    padding: 10px 12px;
+    border-radius: $radius;
+  }
+
+  .sidebar-actions {
+    margin-bottom: 20px;
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border-radius: $radius;
+      border: 1px solid $accent;
+      background: transparent;
+      color: $accent;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background: $accent;
+        color: $text;
+      }
+    }
+  }
+
+  .controls {
+    background: $bg-card;
+    padding: 15px;
+    border-radius: $radius;
+    margin-bottom: 20px;
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: $radius;
+      border: none;
+      margin-bottom: 10px;
+      background: #1f1f24;
+      color: $text;
+      font-size: 0.95rem;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: $text-muted;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    #distance {
+      width: 100%;
+      accent-color: $accent;
+    }
+  }
+
+  .favorites {
+    background: $bg-card;
+    border-radius: $radius;
+    padding: 15px;
+    margin-bottom: 20px;
+
+    h3 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      color: $accent;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      background: #1f1f24;
+      border-radius: $radius;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background: lighten(#1f1f24, 5%);
+      }
+    }
+  }
+
+  .role-panel {
+    background: $bg-card;
+    padding: 15px;
+    border-radius: $radius;
+    margin-top: auto;
+
+    h4 {
+      margin-top: 0;
+      color: $accent;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 4px 0;
+      color: $text;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+  }
+}
+
+/* --- Main map area --- */
+.main {
+  flex: 1;
+  position: relative;
+
+  .map {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+/* --- Select и Option --- */
+select {
+  color: $text;
+}
+
+option {
+  color: black;
+}

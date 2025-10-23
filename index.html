@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Интерактивные карты — Офлайн + Роли</title>
+
+  <!-- Основные стили -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Leaflet (карты) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- MarkerCluster (кластеризация маркеров) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
+  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+  <!-- Leaflet Routing (маршруты) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+</head>
+<body>
+
+  <!-- LOGIN / ROLE SELECTION SCREEN -->
+  <div id="login-screen" class="screen centered">
+    <div class="card">
+      <h1>Добро пожаловать</h1>
+      <p>Выберите роль, чтобы продолжить. Вы всегда можете остаться гостем.</p>
+
+      <label>Имя (опционально):</label>
+      <input id="username-input" placeholder="Ваше имя" />
+
+      <label>Роль:</label>
+      <select id="role-select">
+        <option value="guest">Гость</option>
+        <option value="user">Пользователь</option>
+        <option value="owner">Владелец бизнеса</option>
+        <option value="moderator">Модератор</option>
+        <option value="admin">Администратор</option>
+      </select>
+
+      <div class="row">
+        <button id="enter-btn">Войти</button>
+        <button id="continue-guest-btn">Продолжить как гость</button>
+      </div>
+
+      <small class="muted"></small>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div id="app" class="hidden">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <h2>MapsApp</h2>
+        <div id="user-info"></div>
+        <div class="sidebar-actions">
+          <button id="logout-btn">Выйти</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <input id="search" placeholder="Поиск по имени..." />
+        <select id="category-filter">
+          <option value="all">Все категории</option>
+        </select>
+        <label>Макс. расстояние поиска в пределах локации (м): <span id="dist-label">5000</span></label>
+        <input id="distance" type="range" min="500" max="50000" step="500" value="5000"/>
+      </div>
+
+      <div class="favorites">
+        <h3>Избранное</h3>
+        <ul id="favorites-list"></ul>
+      </div>
+
+      <!-- Role-specific admin panel -->
+      <div id="role-panel" class="role-panel"></div>
+
+      <div class="footer-note">
+        <small><code></code></small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div id="map" class="map"></div>
+
+      <!-- Location card -->
+      <div id="location-card" class="loc-card hidden">
+        <button id="close-card" class="btn-close">✕</button>
+        <h3 id="loc-name"></h3>
+        <p id="loc-category" class="muted"></p>
+        <p id="loc-desc"></p>
+        <p><strong>Адрес:</strong> <span id="loc-address"></span></p>
+        <p><strong>Время:</strong> <span id="loc-hours"></span> — <span id="loc-status"></span></p>
+
+        <div class="card-actions">
+          <button id="fav-toggle-btn">☆ В избранное</button>
+          <button id="route-btn">Построить маршрут</button>
+          <button id="edit-loc-btn" class="hidden">Редактировать (владелец/модератор)</button>
+        </div>
+
+        <hr />
+
+        <div id="reviews-section">
+          <h4>Отзывы</h4>
+          <ul id="reviews-list" class="reviews-list"></ul>
+
+          <div id="add-review" class="add-review">
+            <h5>Добавить / редактировать отзыв</h5>
+            <input id="review-author" placeholder="Ваше имя" />
+            <select id="review-rating">
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+            <textarea id="review-text" placeholder="Текст отзыва"></textarea>
+            <div class="row">
+              <button id="save-review-btn">Сохранить отзыв</button>
+              <button id="cancel-review-btn">Отмена</button>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div id="routes-section">
+          <h4>Персональные маршруты</h4>
+          <ul id="personal-routes"></ul>
+          <div id="save-route-area" class="hidden">
+            <input id="route-name" placeholder="Название маршрута" />
+            <button id="save-route-btn">Сохранить маршрут</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Service Worker register + JS -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js').then(() => {
+        console.log('Service Worker зарегистрирован');
+      }).catch((err) => { console.warn('SW registration failed:', err); });
+    }
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

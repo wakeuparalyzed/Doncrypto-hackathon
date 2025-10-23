@@ -1,0 +1,229 @@
+@charset "UTF-8";
+/* === Основная цветовая тема и шрифты === */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  color: #f1f1f1;
+  background: #0e0e11;
+  overflow: hidden; }
+
+/* === LOGIN SCREEN === */
+#login-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  /* Фон-карта */ }
+  #login-screen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("https://tile.openstreetmap.org/10/546/351.png") center/cover no-repeat;
+    transform: scale(1.2);
+    /* менее приближено */
+    filter: brightness(0.5);
+    z-index: 0; }
+  #login-screen .card {
+    position: relative;
+    z-index: 11;
+    background: rgba(28, 28, 31, 0.85);
+    padding: 40px 50px;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    width: 380px;
+    backdrop-filter: blur(6px); }
+    #login-screen .card h1 {
+      margin-bottom: 10px;
+      color: #4f8cff;
+      font-weight: 700;
+      font-size: 2rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); }
+    #login-screen .card p {
+      color: #b0b0b0;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+      line-height: 1.4; }
+    #login-screen .card label {
+      display: block;
+      text-align: left;
+      font-size: 0.85rem;
+      color: #b0b0b0;
+      margin-bottom: 5px;
+      margin-top: 10px; }
+    #login-screen .card input,
+    #login-screen .card select {
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 12px 15px;
+      border-radius: 14px;
+      border: none;
+      background: #1c1c1f;
+      color: #f1f1f1;
+      font-size: 0.95rem;
+      outline: none;
+      transition: 0.3s ease;
+      appearance: none; }
+      #login-screen .card input:focus,
+      #login-screen .card select:focus {
+        background: #2a2a2e;
+        box-shadow: 0 0 8px #4f8cff; }
+    #login-screen .card select {
+      color: #f1f1f1; }
+      #login-screen .card select option {
+        color: black; }
+    #login-screen .card .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px; }
+    #login-screen .card button {
+      flex: 1;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease; }
+      #login-screen .card button:hover {
+        transform: translateY(-2px); }
+      #login-screen .card button:nth-child(1) {
+        background: #4f8cff;
+        color: #fff; }
+        #login-screen .card button:nth-child(1):hover {
+          background: #82adff; }
+      #login-screen .card button:nth-child(2) {
+        background: transparent;
+        border: 1px solid #4f8cff;
+        color: #4f8cff; }
+        #login-screen .card button:nth-child(2):hover {
+          background: #4f8cff;
+          color: #fff; }
+
+/* === APP LAYOUT === */
+#app {
+  display: flex;
+  height: 100vh;
+  background: #0e0e11; }
+
+/* --- Sidebar --- */
+.sidebar {
+  width: 320px;
+  background: #141418;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.05);
+  overflow-y: auto; }
+  .sidebar h2 {
+    font-size: 1.7rem;
+    color: #4f8cff;
+    margin-bottom: 10px;
+    font-weight: 700; }
+  .sidebar #user-info {
+    font-size: 0.95rem;
+    color: #f1f1f1;
+    font-weight: 500;
+    margin-bottom: 15px;
+    background: #1f1f24;
+    padding: 10px 12px;
+    border-radius: 14px; }
+  .sidebar .sidebar-actions {
+    margin-bottom: 20px; }
+    .sidebar .sidebar-actions button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid #4f8cff;
+      background: transparent;
+      color: #4f8cff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s; }
+      .sidebar .sidebar-actions button:hover {
+        background: #4f8cff;
+        color: #f1f1f1; }
+  .sidebar .controls {
+    background: rgba(28, 28, 31, 0.95);
+    padding: 15px;
+    border-radius: 14px;
+    margin-bottom: 20px; }
+    .sidebar .controls input,
+    .sidebar .controls select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 14px;
+      border: none;
+      margin-bottom: 10px;
+      background: #1f1f24;
+      color: #f1f1f1;
+      font-size: 0.95rem; }
+    .sidebar .controls label {
+      font-size: 0.85rem;
+      color: #b0b0b0;
+      margin-bottom: 5px;
+      display: block; }
+    .sidebar .controls #distance {
+      width: 100%;
+      accent-color: #4f8cff; }
+  .sidebar .favorites {
+    background: rgba(28, 28, 31, 0.95);
+    border-radius: 14px;
+    padding: 15px;
+    margin-bottom: 20px; }
+    .sidebar .favorites h3 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      color: #4f8cff;
+      font-weight: 600;
+      margin-bottom: 10px; }
+    .sidebar .favorites ul {
+      list-style: none;
+      padding: 0;
+      margin: 0; }
+    .sidebar .favorites li {
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      background: #1f1f24;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s; }
+      .sidebar .favorites li:hover {
+        background: #2b2b32; }
+  .sidebar .role-panel {
+    background: rgba(28, 28, 31, 0.95);
+    padding: 15px;
+    border-radius: 14px;
+    margin-top: auto; }
+    .sidebar .role-panel h4 {
+      margin-top: 0;
+      color: #4f8cff;
+      font-size: 1rem;
+      font-weight: 600; }
+    .sidebar .role-panel p {
+      margin: 4px 0;
+      color: #f1f1f1;
+      font-size: 0.95rem;
+      font-weight: 500; }
+
+/* --- Main map area --- */
+.main {
+  flex: 1;
+  position: relative; }
+  .main .map {
+    height: 100%;
+    width: 100%; }
+
+/* --- Select и Option --- */
+select {
+  color: #f1f1f1; }
+
+option {
+  color: black; }
+
+/*# sourceMappingURL=style.css.map */
